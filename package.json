@@ -3,12 +3,6 @@
   "version": "1.0.0",
   "description": "build stuff here",
   "main": "client/index.js",
-  "babel": {
-    "presets": [
-      "@babel/preset-env",
-      "@babel/preset-react"
-    ]
-  },
   "scripts": {
     "dev": "webpack-dev-server --open",
     "build": "webpack",

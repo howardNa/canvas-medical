@@ -4,19 +4,18 @@ const { HotModuleReplacementPlugin } = require('webpack');
 
 module.exports = {
   entry: [
-      'webpack-dev-server/client?https://localhost:8080',
-      'webpack/hot/dev-server',
       path.resolve(__dirname, './client/index.js')
     ],
   output: {
-    path: path.resolve(__dirname, '/dist'),
+    path: path.resolve(__dirname + '/dist'),
     filename: 'bundle.js'
   },
   module: {
     rules: [
       { test: /\.(js|jsx)$/, 
         exclude: /node_modules/,
-        use: 'babel-loader' },
+        use: 'babel-loader'
+      },
       {
         test: /\.css$/,
         use: [
@@ -33,7 +32,9 @@ module.exports = {
   mode: 'development',
   devServer: {
       inline: true,
-      hot: true
+      hot: true,
+      contentBase: './dist',
+      publicPath: '/'
   },
   plugins: [
     new HtmlWebpackPlugin({
