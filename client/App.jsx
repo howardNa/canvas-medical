@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import ExampleComponent from './components/ExampleComponent.js';
+
 class App extends Component {
     constructor(props) {
         super(props);
@@ -20,7 +22,10 @@ class App extends Component {
 
     render() {
         return (
-            <div>Hello from App component</div>
+            <div>
+                <h1>Rendering: App component</h1>
+                <ExampleComponent/>
+            </div>
         )
     }
 }
