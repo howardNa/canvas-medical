@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './syles/App.scss';
 
 import ExampleComponent from './components/ExampleComponent.js';
 
@@ -24,6 +25,7 @@ class App extends Component {
         return (
             <div>
                 <h1>Rendering: App component</h1>
+                <h3>Testing h3 font color (SASS > theme > offwhite, darken 5%)</h3>
                 <ExampleComponent/>
             </div>
         )
