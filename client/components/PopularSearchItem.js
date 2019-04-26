@@ -8,7 +8,7 @@ const PopularSearchItem = (props) => {
 
   return (
     <div className="popular-item">
-        <h5>{term}</h5>
+        <h4>{term}</h4>
     </div>
   );
 };

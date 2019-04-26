@@ -1,5 +1,74 @@
 @import 'theme';
 
-h3 {
-    color: darken($off-white-color, 5%);
-}
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 0.7fr 0.5fr 0.6fr 0.4fr 2.8fr;
+    grid-template-areas: "nav-container nav-container nav-container nav-container" "search-container search-container search-container search-container" "popular-container popular-container popular-container popular-container" "results-header results-header alt-header alt-header" "results-container results-container alt-container alt-container";
+    width: 100vw;
+    height: 100vh;
+  }
+  
+  .nav-container { 
+      grid-area: nav-container; 
+      margin: auto;
+    }
+  
+  .search-container { 
+      grid-area: search-container; 
+      margin: auto;
+    }
+  
+  .popular-container { 
+      grid-area: popular-container; 
+      margin: auto;
+    //   display: flex;
+    }
+
+    .popular-box {
+        display: flex;
+        flex-direction: row;
+    }
+    
+    .popular-item {
+        padding-left: 22px;
+    }
+  
+  .results-header { 
+      grid-area: results-header; 
+    }
+  
+  .alt-header { 
+      grid-area: alt-header; 
+    }
+  
+  .results-container { 
+      grid-area: results-container; 
+      padding-left: 20px;
+    }
+
+    .single-option p {
+        font-size: 18px;
+        width: fit-content;
+        padding-left: 8px;
+        padding-right: 8px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        border-left: 2px solid blue;
+    }
+
+    .single-option p:hover {
+        background-color: orange;
+        color: white;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+  
+  .alt-container { 
+      grid-area: alt-container; 
+    }
+
+    .single-alt {
+        border-bottom: 1px solid grey;
+        margin-bottom: 30px;
+    }
