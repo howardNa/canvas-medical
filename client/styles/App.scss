@@ -164,4 +164,10 @@
         margin-bottom: 30px;
         width: 95%;
         color: $off-black-color;
+        max-height: 100%;
+    }
+
+    .single-alt:hover {
+        color: black;
+        border-bottom: 2px solid darken($border-color, 3%);
     }
