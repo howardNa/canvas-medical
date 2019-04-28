@@ -1,14 +1,11 @@
 import React from "react";
 
-const PopularSearchItem = (props) => {
-    const { term } = props;
-
-    console.log('DOOOOOOOOOOOo')
-    console.log('dddd', term)
+const PopularSearchItem = props => {
+  const { term } = props;
 
   return (
     <div className="popular-item">
-        <h4>{term}</h4>
+      <h4>{term}</h4>
     </div>
   );
 };

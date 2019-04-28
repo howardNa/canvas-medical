@@ -1,10 +1,11 @@
 import React from "react";
 
-const SingleOption = (props) => {
-
+const SingleOption = props => {
   return (
     <div className="single-option">
-        <p onClick={props.listOptions} rxcui={props.rxcui}>{props.synonym}</p>
+      <p onClick={props.listOptions} rxcui={props.rxcui}>
+        {props.synonym}
+      </p>
     </div>
   );
 };
