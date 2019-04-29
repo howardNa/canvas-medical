@@ -1,8 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-// const cookieParser = require('cookie-parser');
-const eventController = require('./eventController.js')
 const path = require('path');
 const dotenv = require('dotenv');
 
