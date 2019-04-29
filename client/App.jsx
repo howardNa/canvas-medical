@@ -13,6 +13,7 @@ class App extends Component {
       input: "",
       searchResponse: [],
       altList: [],
+      cache: {},
       ingredient: "",
       popularSearches: {},
       isFetching: false,
@@ -20,6 +21,7 @@ class App extends Component {
       error: false
     };
     this.handleChange = this.handleChange.bind(this);
+    this.popSearch = this.popSearch.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.listOptions = this.listOptions.bind(this);
   }
@@ -28,44 +30,47 @@ class App extends Component {
     this.setState({ input: e.target.value });
   }
 
+  popSearch(e) {
+    const term = e.target.getAttribute("term");
+
+    this.setState({ input: term, ingredient: "" }, () => {
+      this.handleSearch();
+    });
+  }
+
   handleSearch(e) {
-    const code = e.keyCode || e.which;
-    if (code === 13) {
-      this.setState({
-        isFetching: true,
-        searchResponse: [],
-        altList: [],
-        error: false
+    this.setState({
+      isFetching: true,
+      searchResponse: [],
+      altList: [],
+      error: false
+    });
+
+    const { input } = this.state;
+    const { popularSearches } = this.state;
+
+    fetch(`https://rxnav.nlm.nih.gov/REST/drugs.json?name=${input}`)
+      .then(res => res.json())
+      .then(data => {
+        const successResponse = data.drugGroup.conceptGroup;
+
+        if (!successResponse) {
+          this.setState({ error: true, isFetching: false });
+        } else if (successResponse) {
+          this.setState({
+            searchResponse: successResponse,
+            isFetching: false
+          });
+        }
+      })
+      .catch(err => {
+        console.log(err);
       });
 
-      const { input } = this.state;
-      const { popularSearches } = this.state;
-
-      setTimeout(() => {
-        fetch(`https://rxnav.nlm.nih.gov/REST/drugs.json?name=${input}`)
-          .then(res => res.json())
-          .then(data => {
-            const successResponse = data.drugGroup.conceptGroup;
-
-            if (!successResponse) {
-              this.setState({ error: true, isFetching: false });
-            } else if (successResponse) {
-              this.setState({
-                searchResponse: successResponse,
-                isFetching: false
-              });
-            }
-          })
-          .catch(err => {
-            console.log(err);
-          });
-      }, 700);
-
-      if (!popularSearches[input]) {
-        popularSearches[input] = 1;
-      } else {
-        popularSearches[input]++;
-      }
+    if (!popularSearches[input]) {
+      popularSearches[input] = 1;
+    } else {
+      popularSearches[input]++;
     }
   }
 
@@ -83,8 +88,6 @@ class App extends Component {
         this.setState({ ingredient: ingredient });
         const ingredientID =
           data.relatedGroup.conceptGroup[0].conceptProperties[0].rxcui;
-        console.log("ingredients: ", ingredient);
-        console.log("rxcui: ", ingredientID);
 
         //GET request to find alternatives
         fetch(
@@ -124,7 +127,10 @@ class App extends Component {
           {this.state.error ? errorMessage : " "}
         </div>
         <div className="popular-container">
-          <PopularSearchBox popularSearches={this.state.popularSearches} />
+          <PopularSearchBox
+            popularSearches={this.state.popularSearches}
+            popSearch={this.popSearch}
+          />
         </div>
         <div className="results-header">
           {this.state.isFetching === true ? loader : ""}

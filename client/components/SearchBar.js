@@ -16,11 +16,11 @@ const SearchBar = (props) => {
             id="input-with-icon-grid"
             label="What would you like to search?"
             onChange={props.handleChange}
-            onKeyPress={props.handleSearch}
             style={{ width: 350, color: "orange" }}
           />
         </Grid>
       </Grid>
+      <button className="search-button" onClick={props.handleSearch} >Search</button>
     </div>
   );
 };

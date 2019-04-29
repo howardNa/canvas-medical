@@ -13,7 +13,7 @@ const PopularSearchBox = (props) => {
       return el[0];
     });
     top5Inputs.forEach((el, i) => {
-      top5.push(<PopularSearchItem key={i} term={el} />)
+      top5.push(<PopularSearchItem key={i} term={el} popSearch={props.popSearch} />)
     })
   }
 
