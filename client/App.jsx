@@ -32,10 +32,14 @@ class App extends Component {
 
   popSearch(e) {
     const term = e.target.getAttribute("term");
+    const element = e.target;
+    const inputField = document.getElementById('input-with-icon-grid')
+    console.log('element value: ', inputField.value)
 
     this.setState({ input: term, ingredient: "" }, () => {
       this.handleSearch();
     });
+    inputField.value = term;
   }
 
   handleSearch(e) {
