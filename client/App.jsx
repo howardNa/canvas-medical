@@ -13,7 +13,6 @@ class App extends Component {
       input: "",
       searchResponse: [],
       altList: [],
-      cache: {},
       ingredient: "",
       popularSearches: {},
       isFetching: false,
@@ -24,6 +23,10 @@ class App extends Component {
     this.popSearch = this.popSearch.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.listOptions = this.listOptions.bind(this);
+  }
+
+  componentDidUpdate() {
+    console.log('here is cache: ', this.state.cache)
   }
 
   handleChange(e) {
@@ -51,7 +54,9 @@ class App extends Component {
     const { input } = this.state;
     const { popularSearches } = this.state;
 
-    fetch(`https://rxnav.nlm.nih.gov/REST/drugs.json?name=${input}`)
+   
+  
+      fetch(`https://rxnav.nlm.nih.gov/REST/drugs.json?name=${input}`)
       .then(res => res.json())
       .then(data => {
         const successResponse = data.drugGroup.conceptGroup;
@@ -59,21 +64,26 @@ class App extends Component {
         if (!successResponse) {
           this.setState({ error: true, isFetching: false });
         } else if (successResponse) {
-          this.setState({
-            searchResponse: successResponse,
-            isFetching: false
-          });
+          let popSearchCount;
+
+          if (!popularSearches[input]) {
+            popSearchCount = 1;
+          } else {
+            popSearchCount = this.state.popularSearches[input] + 1;
+          }
+          const newState = this.state;
+          newState.searchResponse = successResponse;
+          newState.isFetching = false;
+          newState.popularSearches[input] = popSearchCount;
+          this.setState({newState});
         }
       })
       .catch(err => {
         console.log(err);
       });
 
-    if (!popularSearches[input]) {
-      popularSearches[input] = 1;
-    } else {
-      popularSearches[input]++;
-    }
+    
+
   }
 
   listOptions(e) {

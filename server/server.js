@@ -19,8 +19,6 @@ if (process.env.PORT && process.env.myMongoDb) {
     })
 }
 
-
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
